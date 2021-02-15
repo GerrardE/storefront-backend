@@ -1,6 +1,6 @@
 import validator from "validator";
 import IObjectConstructor from "../interfaces/object";
-import { IUserPayload } from "../interfaces/userpayload";
+import IUserPayload from "../interfaces/userpayload";
 import isEmpty from "../middlewares/isempty";
 
 const validUser = (data: IUserPayload): IObjectConstructor => {
