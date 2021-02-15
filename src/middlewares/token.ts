@@ -1,13 +1,13 @@
 import ResponseController from '../helpers/response';
 import jwt, { Secret } from 'jsonwebtoken';
-import { IUserPayload } from '../interfaces/userpayload';
 import { NextFunction, Request, Response } from 'express';
+import IObjectConstructor from '../interfaces/object';
 
-const secret: Secret = process.env.SECRET_KEY!;
+const secret: Secret = process.env.SECRET_KEY as string;
 
-export const createToken = ((payload: IUserPayload) => jwt.sign(payload, secret, { expiresIn: '1d' }));
+export const createToken = ((payload: IObjectConstructor): string => jwt.sign(payload, secret, { expiresIn: '1d' }));
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+export const verifyToken = (req: Request, res: Response, next: NextFunction): NextFunction | Response | void => {
   const token = req.headers.authorization || req.body.token;
 
   if (!token) {
@@ -25,5 +25,5 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
     req.body.decoded = decoded;
     return next();
-  }
+  };
 };

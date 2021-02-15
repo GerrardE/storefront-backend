@@ -7,15 +7,27 @@ let connect;
 
 if (process.env.NODE_ENV === "dev") {
     connect = {
-        connectionString: process.env.DEV_DATABASE_URL
+        user: process.env.DEV_USER,
+        host: process.env.DEV_HOST,
+        port: Number(process.env.DEV_PORT),
+        database: process.env.DEV_DATABASE,
+        password: process.env.DEV_PASSWORD,
     };
 } else if (process.env.NODE_ENV === "prod") {
     connect = {
-        connectionString: process.env.PROD_DATABASE_URL
+        user: process.env.PROD_USER,
+        host: process.env.PROD_HOST,
+        port: Number(process.env.PROD_PORT),
+        database: process.env.PROD_DATABASE,
+        password: process.env.PROD_PASSWORD,
     };
 } else {
     connect = {
-        connectionString: process.env.TEST_DATABASE_URL
+        user: process.env.TEST_USER,
+        host: process.env.TEST_HOST,
+        port: Number(process.env.TEST_PORT),
+        database: process.env.TEST_DATABASE,
+        password: process.env.TEST_PASSWORD,
     };
 }
 

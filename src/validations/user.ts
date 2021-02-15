@@ -3,12 +3,13 @@ import IObjectConstructor from "../interfaces/object";
 import { IUserPayload } from "../interfaces/userpayload";
 import isEmpty from "../middlewares/isempty";
 
-const validUser = (data: IUserPayload) => {
+const validUser = (data: IUserPayload): IObjectConstructor => {
   const errors: IObjectConstructor = {};
 
   data.firstName = !isEmpty(data.firstName) ? data.firstName : "";
   data.lastName = !isEmpty(data.lastName) ? data.lastName : "";
   data.password = !isEmpty(data.password) ? data.password : "";
+  data.email = !isEmpty(data.email) ? data.email : "";
 
   // First name validations
   if (!validator.isLength(data.firstName, { min: 2, max: 200 })) {
@@ -26,6 +27,15 @@ const validUser = (data: IUserPayload) => {
 
   if (isEmpty(data.lastName)) {
     errors.lastName = "last name field is required";
+  }
+
+  // Email validations
+  if (!validator.isEmail(data.email)) {
+    errors.email = 'Email is invalid';
+  }
+
+  if (isEmpty(data.email)) {
+    errors.email = 'Email field is required';
   }
 
   // Password validations

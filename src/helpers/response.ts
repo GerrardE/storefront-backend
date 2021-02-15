@@ -14,7 +14,7 @@ class ResponseModel {
    * @returns {object} object
    * @memberof ResponseModel
    */
-  static success(res: Response, code = 200, status = 200, payload = {}, message = 'Successful') {
+  static success(res: Response, code = 200, status = 200, payload = {}, message = 'Successful'): Response {
     return res.status(code).json({
       status,
       message,
@@ -32,7 +32,7 @@ class ResponseModel {
    * @returns {object} object
    * @memberof ResponseModel
    */
-  static error(res: Response, code = 200, status = 200, errors = {}, message = 'Validation Error') {
+  static error(res: Response, code = 200, status = 200, errors = {}, message = 'Validation Error'): Response {
     return res.status(code).json({
       status,
       message,

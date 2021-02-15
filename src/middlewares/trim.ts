@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import IObjectConstructor from '../interfaces/object';
 
-const trim = (req: Request, res: Response, next: NextFunction) => {
+const trim = (req: Request, res: Response, next: NextFunction): void => {
   const keysArr = Object.keys(req.body);
 
   req.body = keysArr.reduce((obj: IObjectConstructor, key) => {

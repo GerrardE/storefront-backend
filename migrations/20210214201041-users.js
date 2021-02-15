@@ -28,8 +28,8 @@ exports.up = function (db) {
       notNull: true,
     },
     email: "string",
-    firstName: "string",
-    lastName: "string",
+    firstname: "string",
+    lastname: "string",
     password: "string",
   });
 };

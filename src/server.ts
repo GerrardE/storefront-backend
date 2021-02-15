@@ -10,15 +10,15 @@ const app: express.Application = express();
 
 const port = process.env.PORT || 3000;
 
-const address: string = `0.0.0.0:${port}`
+const address = `0.0.0.0:${port}`;
 
 const debugged = debug("server");
 
 config();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
@@ -27,6 +27,6 @@ app.use(logger("dev"));
 app.use("/api/v1", apis);
 
 app.listen(port, function () {
-    debugged(`starting app on: ${address}`);
-    console.log(`starting app on: ${address}`)
-})
+  debugged(`starting app on: ${address}`);
+  console.log(`starting app on: ${address}`);
+});
