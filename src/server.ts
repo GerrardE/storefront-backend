@@ -1,22 +1,32 @@
-import express, { Request, Response } from 'express';
-import bodyParser from 'body-parser';
-import debug from 'debug';
-import { config } from 'dotenv';
-import cors from 'cors';
+import express from "express";
+import bodyParser from "body-parser";
+import debug from "debug";
+import logger from "morgan";
+import { config } from "dotenv";
+import cors from "cors";
+import apis from "./routes/api";
 
-const app: express.Application = express()
-const address: string = "0.0.0.0:3000"
+const app: express.Application = express();
 
-const debugged = debug('index');
+const port = process.env.PORT || 3000;
+
+const address: string = `0.0.0.0:${port}`
+
+const debugged = debug("server");
+
 config();
 
 app.use(bodyParser.json())
+
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(cors());
 
-app.get('/', function (req: Request, res: Response) {
-    res.send('Hello World!')
-})
+app.use(logger("dev"));
 
-app.listen(3000, function () {
+app.use("/api/v1", apis);
+
+app.listen(port, function () {
+    debugged(`starting app on: ${address}`);
     console.log(`starting app on: ${address}`)
 })
