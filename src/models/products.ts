@@ -1,45 +1,47 @@
 import ResponseModel from "../helpers/response";
 import { Response, Request } from "express";
-import validCategory from "../validations/category";
+import validProduct from "../validations/product";
 import pool from "../database/dbconnect";
-import { createCategory, returnCategories, deleteCategory, updateCategory } from "../database/sqlqueries";
+import { createProduct, returnProducts, returnProduct, returnProductByCategory } from "../database/sqlqueries";
 
 /**
- * Category Model
+ * Product Model
  * @async
- * @class CategoryModel
+ * @class ProductModel
  */
-class CategoryModel {
+class ProductModel {
     /**
      * @static
      * @param {*} req - Request object
      * @param {*} res - Response object
      * @param {*} next - The next middleware
      * @return {json} Returns json object
-     * @memberof CategoryModel
+     * @memberof ProductModel
      */
     static async create(req: Request, res: Response): Promise<Response> {
         const client = await pool.connect();
         try {
-            const { errors, isValid } = validCategory(req.body);
+            const { errors, isValid } = validProduct(req.body);
 
             // Check Validation
             if (!isValid) {
                 return ResponseModel.error(res, 400, 400, errors);
             }
 
-            const category = [
+            const product = [
                 req.body.name,
-                req.body.notes,
+                req.body.price,
+                Number(req.body.categoryid),
             ];
 
-            const { rows } = await client.query(createCategory, category);
+            const { rows } = await client.query(createProduct, product);
             client.release();
 
             const payload = {
                 id: rows[0].id,
                 name: rows[0].name,
-                notes: rows[0].notes,
+                price: rows[0].price,
+                categoryid: rows[0].categoryid,
             };
 
             return ResponseModel.success(
@@ -47,7 +49,7 @@ class CategoryModel {
                 201,
                 201,
                 payload,
-                "Category created successfully"
+                "Product created successfully"
             );
         } catch (error) {
             return ResponseModel.error(
@@ -55,7 +57,7 @@ class CategoryModel {
                 400,
                 400,
                 error,
-                "Category creation unsuccessful"
+                "Product creation unsuccessful"
             );
         }
     }
@@ -66,12 +68,12 @@ class CategoryModel {
    * @param {*} res - Response object
    * @param {*} next - The next middleware
    * @return {json} Returns json object
-   * @memberof CategoryModel
+   * @memberof ProductModel
    */
-    static async getAllCategories(req: Request, res: Response): Promise<Response> {
+    static async getAllProducts(req: Request, res: Response): Promise<Response> {
         const client = await pool.connect();
         try {
-            const { rows: payload } = await client.query(returnCategories);
+            const { rows: payload } = await client.query(returnProducts);
             client.release();
 
             return ResponseModel.success(
@@ -79,7 +81,7 @@ class CategoryModel {
                 200,
                 200,
                 payload,
-                "Categories retrieved successfully"
+                "Products retrieved successfully"
             );
         } catch (error) {
             return ResponseModel.error(
@@ -87,40 +89,25 @@ class CategoryModel {
                 400,
                 400,
                 error,
-                "Categories could not be retrieved"
+                "Products could not be retrieved"
             );
         }
     }
 
-    /**
-   * @static
-   * @param {*} req - Request object
-   * @param {*} res - Response object
-   * @param {*} next - The next middleware
-   * @return {json} Returns json object
-   * @memberof CategoryModel
-   */
-    static async updateCategory(req: Request, res: Response): Promise<Response> {
+     /**
+     * @static
+     * @param {*} req - Request object
+     * @param {*} res - Response object
+     * @param {*} next - The next middleware
+     * @return {json} Returns json object
+     * @memberof ProductModel
+     */
+    static async getProduct(req: Request, res: Response): Promise<Response> {
         const client = await pool.connect();
         try {
-            const { errors, isValid } = validCategory(req.body);
+            const { productid } = req.params;
 
-            // Check Validation
-            if (!isValid) {
-                return ResponseModel.error(res, 400, 400, errors);
-            }
-            
-            const { categoryid: id } = req.params;
-
-            const categoryid = Number(id);
-
-            const update = [
-                categoryid,
-                req.body.name,
-                req.body.notes,
-            ]
-
-            let { rows: payload } = await client.query(updateCategory, update);
+            let { rows: payload } = await client.query(returnProduct, [Number(productid)]);
             client.release();
 
             payload = payload[0];
@@ -130,7 +117,7 @@ class CategoryModel {
                 200,
                 200,
                 payload,
-                "Category updated successfully"
+                "Product retrieved successfully"
             );
         } catch (error) {
             return ResponseModel.error(
@@ -138,35 +125,33 @@ class CategoryModel {
                 400,
                 400,
                 error,
-                "Category could not be updated"
+                "Product could not be retrieved"
             );
         }
     }
 
-    /**
-   * @static
-   * @param {*} req - Request object
-   * @param {*} res - Response object
-   * @param {*} next - The next middleware
-   * @return {json} Returns json object
-   * @memberof CategoryModel
-   */
-    static async deleteCategory(req: Request, res: Response): Promise<Response> {
+     /**
+     * @static
+     * @param {*} req - Request object
+     * @param {*} res - Response object
+     * @param {*} next - The next middleware
+     * @return {json} Returns json object
+     * @memberof ProductModel
+     */
+    static async getProductByCategory(req: Request, res: Response): Promise<Response> {
         const client = await pool.connect();
         try {
-            const { categoryid: id } = req.params;
+            const { categoryid } = req.params;
 
-            const categoryid = Number(id);
-
-            await client.query(deleteCategory, [categoryid]);
+            const { rows: payload } = await client.query(returnProductByCategory, [Number(categoryid)]);
             client.release();
 
             return ResponseModel.success(
                 res,
                 200,
                 200,
-                {},
-                "Category deleted successfully"
+                payload,
+                "Product retrieved successfully"
             );
         } catch (error) {
             return ResponseModel.error(
@@ -174,10 +159,10 @@ class CategoryModel {
                 400,
                 400,
                 error,
-                "Category could not be deleted"
+                "Product could not be retrieved"
             );
         }
     }
 }
 
-export default CategoryModel;
+export default ProductModel;

@@ -13,30 +13,19 @@ This application makes use of the following libraries:
 - jsonwebtoken from npm for working with JWTs
 - jasmine from npm for testing
 
-## Steps to Completion
+## Installation and Setup
 
-### 1. Plan to Meet Requirements
+### 1. Installation Steps
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend.
+- Clone the repository to your local computer: `git clone https://github.com/GerrardE/storefront-backend.git`,
+- In the root directory of the project run: `yarn` to install all project dependencies.
 
-### 2.  DB Creation and Migrations
+### 2. Setup
 
-- Run `node_modules/db-migrate/bin/db-migrate create seed --config ./src/database/config/dev.js -m ./src/database/migrations`
+- Create a new database on your local computer and note the credentials,
+- Create a new `.env` file on the root of the project and copy the contents of `.env.example` into it, replace the credendtials with your local credentials depending on the environment you choose(prod, test or dev) e.g database port, username, password, database, salt(integer i.e 10), secret(string e.g abnormal), app `PORT`(integer e.g 8000)
+- Run `yarn watch:dev` to spin up an instance of the project on your local machine.
 
-### 3. Models
+At this point the apis can be accessed at the address(localhost) and `PORT` of your local machine e.g `localhost:8000`
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
 
-### 4. Express Handlers
-
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
-
-### 5. JWTs
-
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
-
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
