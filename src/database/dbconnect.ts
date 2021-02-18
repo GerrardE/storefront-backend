@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === "dev") {
 const pool = new Pool(connect);
 
 pool.on("connect", () => {
-    console.log("db connection established");
+    console.log(`${process.env.NODE_ENV} environment config loaded, db connection established`);
 });
 
 export default pool;

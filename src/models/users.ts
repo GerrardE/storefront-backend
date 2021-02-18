@@ -118,6 +118,16 @@ class UserModel {
 
             payload = payload[0];
 
+            if (!payload) {
+                return ResponseModel.error(
+                    res,
+                    404,
+                    404,
+                    {},
+                    "User not found"
+                )
+            };
+
             return ResponseModel.success(
                 res,
                 200,

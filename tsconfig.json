@@ -70,6 +70,7 @@
   "exclude": [
     "./dist/**/*",
     "migrations/",
-    "node_modules/"
+    "node_modules/",
+    "spec/**/*"
   ]
 }

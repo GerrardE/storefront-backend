@@ -6,6 +6,4 @@ interface IUserPayload {
     password: string,
 };
 
-export {
-    IUserPayload
-};
+export default IUserPayload;
