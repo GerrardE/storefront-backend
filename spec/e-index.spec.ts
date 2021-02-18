@@ -3,9 +3,7 @@ import server from "../dist/server";
 
 interface IData {
     status?: number,
-    token?: string,
     message?: string,
-    body?: any[], // allow for broad values for testing
 };
 
 describe("INDEX TESTS >> :", function () {
@@ -13,7 +11,7 @@ describe("INDEX TESTS >> :", function () {
         server.close();
     });
     describe("Tests for /index/ route-", () => {
-        let data: IData = {};
+        const data: IData = {};
         beforeAll(async (done) => {
             try {
                 const response = await axios.get("/");

@@ -1,15 +1,19 @@
 import axios from "axios";
 import { correctOrder, extraOrder } from "./mockdata/order";
 
+interface IObjectConstructor {
+    [key: string]: string | number | boolean | Record<string, unknown>;
+};
+
 interface IData {
     status?: number,
     token?: string,
-    body?: any, // allow for broad values for testing
+    body?: IObjectConstructor
 };
 
 describe("ORDERS TESTS >> :", function () {
     describe("Tests for /orders/ CREATE order route-", () => {
-        let data: IData = {};
+        const data: IData = {};
         beforeAll(async (done) => {
             try {
                 const response = await axios.post("/orders/1", correctOrder);
@@ -30,7 +34,7 @@ describe("ORDERS TESTS >> :", function () {
         });
     });
     describe("Tests for /orders/1 GET orders by user route-", () => {
-        let data: IData = {};
+        const data: IData = {};
 
         beforeAll(async (done) => {
             try {
@@ -51,7 +55,7 @@ describe("ORDERS TESTS >> :", function () {
         });
     });
     describe("Tests for /orders/1/completed GET order by category route-", () => {
-        let data: IData = {};
+        const data: IData = {};
         beforeAll(async (done) => {
             try {
                 const response = await axios.get("/orders/1/completed");

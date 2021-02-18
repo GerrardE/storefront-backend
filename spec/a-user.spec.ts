@@ -2,23 +2,25 @@ import axios from "axios";
 import server from "../dist/server";
 import { correctUser } from "./mockdata/user";
 
+interface IObjectConstructor {
+  [key: string]: string | number | boolean | Record<string, unknown>;
+};
+
 interface IData {
   status?: number,
   token?: string,
-  body?: any, // allow for broad values for testing
+  body?: IObjectConstructor
 };
 
 describe("USER TESTS >> :", function () {
-  let app: { close: () => void; };
-
   axios.defaults.baseURL = `http://localhost:${process.env.PORT}/api/v1`
 
   beforeAll(() => {
-    app = server;
+    server;
   });
 
   describe("Tests for setup /users/setup user route-", () => {
-    let data: IData = {};
+    const data: IData = {};
 
     beforeAll(async (done) => {
       try {
@@ -41,7 +43,7 @@ describe("USER TESTS >> :", function () {
     });
   });
   describe("Tests for /users/ create user route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.post("/users", correctUser);
@@ -61,7 +63,7 @@ describe("USER TESTS >> :", function () {
     });
   });
   describe("Tests for /users get users route-", () => {
-    let data: IData = {};
+    const data: IData = {};
 
     beforeAll(async (done) => {
       try {
@@ -82,7 +84,7 @@ describe("USER TESTS >> :", function () {
     });
   });
   describe("Tests for /users/:userid get user route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.get("/users/1");

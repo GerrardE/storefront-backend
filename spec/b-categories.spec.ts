@@ -1,15 +1,19 @@
 import axios from "axios";
 import { correctCategory, updateCategory, extraCategory } from "./mockdata/category";
 
+interface IObjectConstructor {
+  [key: string]: string | number | boolean | Record<string, unknown>;
+};
+
 interface IData {
   status?: number,
   token?: string,
-  body?: any, // allow for broad values for testing
+  body?: IObjectConstructor
 };
 
 describe("CATEGORY TESTS >> :", function () {
   describe("Tests for /categories/ CREATE category route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.post("/categories", correctCategory);
@@ -33,7 +37,7 @@ describe("CATEGORY TESTS >> :", function () {
     });
   });
   describe("Tests for /categories GET categories route-", () => {
-    let data: IData = {};
+    const data: IData = {};
 
     beforeAll(async (done) => {
       try {
@@ -54,7 +58,7 @@ describe("CATEGORY TESTS >> :", function () {
     });
   });
   describe("Tests for /categories/1 PUT route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.put("/categories/1", updateCategory);
@@ -74,7 +78,7 @@ describe("CATEGORY TESTS >> :", function () {
     });
   });
   describe("Tests for /categories/1 DELETE route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.delete("/categories/1");

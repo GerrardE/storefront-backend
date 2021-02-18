@@ -1,15 +1,19 @@
 import axios from "axios";
 import { correctProduct } from "./mockdata/product";
 
+interface IObjectConstructor {
+  [key: string]: string | number | boolean | Record<string, unknown>;
+};
+
 interface IData {
   status?: number,
   token?: string,
-  body?: any, // allow for broad values for testing
+  body?: IObjectConstructor
 };
 
 describe("PRODUCTS TESTS >> :", function () {
   describe("Tests for /products/ CREATE product route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.post("/products", correctProduct);
@@ -30,7 +34,7 @@ describe("PRODUCTS TESTS >> :", function () {
     });
   });
   describe("Tests for /products GET products route-", () => {
-    let data: IData = {};
+    const data: IData = {};
 
     beforeAll(async (done) => {
       try {
@@ -51,7 +55,7 @@ describe("PRODUCTS TESTS >> :", function () {
     });
   });
   describe("Tests for /products/2/category GET product by category route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.get("/products/2/category");
@@ -71,7 +75,7 @@ describe("PRODUCTS TESTS >> :", function () {
     });
   });
   describe("Tests for /products/1 GET product by id route-", () => {
-    let data: IData = {};
+    const data: IData = {};
     beforeAll(async (done) => {
       try {
         const response = await axios.get("/products/1");
