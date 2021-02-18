@@ -69,7 +69,7 @@ class CategoryModel {
    * @memberof CategoryModel
    */
     static async getAllCategories(req: Request, res: Response): Promise<Response> {
-        const client = await pool.connect();
+    const client = await pool.connect();
         try {
             const { rows: payload } = await client.query(returnCategories);
             client.release();
