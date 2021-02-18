@@ -1,8 +1,8 @@
-# Storefront Backend Project
+# Storefront Backend
 
 ## Getting Started
 
-This repo contains a basic Node and Express app for a storefront. To get started, clone this repo and run `yarn` in your terminal at the project root.
+This repo contains a basic Node and Express app for a storefront.
 
 ## Required Technologies
 This application makes use of the following libraries:
@@ -21,11 +21,11 @@ This application makes use of the following libraries:
 - In the root directory of the project run: `yarn` to install all project dependencies.
 
 ### 2. Setup
-
 - Create a new database on your local computer and note the credentials,
-- Create a new `.env` file on the root of the project and copy the contents of `.env.example` into it, replace the credendtials with your local credentials depending on the environment you choose(prod, test or dev) e.g database port, username, password, database, salt(integer i.e 10), secret(string e.g abnormal), app `PORT`(integer e.g 8000)
-- Run `yarn watch:dev` to spin up an instance of the project on your local machine.
+- Create a new `.env` file on the root of the project and copy the contents of `.env.example` into it, replace the credendtials with your local credentials depending on the environment you want to work with (prod, test or dev) e.g database: username, password, database(name), port; salt(integer i.e 10), secret(string e.g abnormal), app `PORT`(integer e.g 8000).
+- Run `yarn migrate:up` to create tables in the database configured in the previous step.
+- Run `yarn watch` to spin up a local instance of the project on your machine on port `PORT` as in the `.env` file. The app would become accessible at the address `http://localhost:{PORT e.g 8000}/api/v1`
 
-At this point the apis can be accessed at the address(localhost) and `PORT` of your local machine e.g `localhost:8000`
+### 3. 
 
 
