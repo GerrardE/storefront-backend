@@ -31,4 +31,8 @@ This application makes use of the following libraries:
 - Add credentials e.g database: username, password, database(name) and port for all `TEST` credentials.
 - Run `yarn test` to see all the tests pass. 
 
+### 4. Documentation
+
+A postman collection has also been provided here in the schema folder - `./schema`
+
 
