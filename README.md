@@ -26,6 +26,9 @@ This application makes use of the following libraries:
 - Run `yarn migrate:up` to create tables in the database configured in the previous step.
 - Run `yarn watch` to spin up a local instance of the project on your machine on port `PORT` as in the `.env` file. The app would become accessible at the address `http://localhost:{PORT e.g 8000}/api/v1`
 
-### 3. 
+### 3. Tests
+- Create a new database on your local computer and note the credentials for the test environment,
+- Add credentials e.g database: username, password, database(name) and port for all `TEST` credentials.
+- Run `yarn test` to see all the tests pass. 
 
 
